@@ -1,8 +1,9 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 mongoose.set('useFindAndModify', false)
 const Schema = mongoose.Schema
-const JWT = require('../utils/jwt')
-const { getRandomNumber, num2Time, useError } = require('../utils')
+import { generateToken } from '../utils/jwt'
+import { getRandomNumber, num2Time, useError } from '../utils'
+import { Context } from 'koa'
 const GENDER_ENUM = { male: 'male', female: 'female', unknow: 'unknow' }
 const expMins = 1 // 验证码过期时间 分钟
 const smsCodeExp = num2Time(expMins)
@@ -17,7 +18,7 @@ const userSchema = new Schema({
   admin: { type: Boolean, default: false },
   isnew: { type: Boolean, default: true },
   sort: { type: Number, default: 100 },
-  friends:[{ type: Schema.Types.ObjectId, ref: 'users' }],
+  friends: [{ type: Schema.Types.ObjectId, ref: 'users' }],
   removed: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
@@ -36,7 +37,7 @@ const smsCodeModel = mongoose.model('smscodes', smsCodeSchema)
 module.exports = {
   userModel,
   smsCodeModel,
-  async sendSmsCode(ctx) {
+  async sendSmsCode(ctx: Context) {
     const { phone } = ctx.request.body
     if (!phone) throw useError('请输入手机号', 401, false)
     const code = getRandomNumber(4)
@@ -46,8 +47,8 @@ module.exports = {
     const text = `【SmallTalk】您的验证码为：${code}，${smsCodeExp.text}内有效。`
     return ctx.body = { text }
   },
-  async list(ctx) {
-    let { page, pagesize } = ctx.query
+  async list(ctx: Context) {
+    let { page, pagesize } = ctx.query as any
     page = Number(page)
     page = page ? page : 0
     pagesize = Number(pagesize)
@@ -59,17 +60,17 @@ module.exports = {
     const total = await userModel.countDocuments(query)
     return ctx.body = { data, total }
   },
-  async remove(ctx) {
+  async remove(ctx: Context) {
     const { _id } = ctx.request.body
-    const one = await userModel.findById(_id)
+    const one:any = await userModel.findById(_id)
     if (!one) throw useError('账号不存在', 401, false)
     one.removed = true
     await one.save()
   },
-  async update(ctx) {
+  async update(ctx: Context) {
     const { name, pwd, avatar, sign, gender } = ctx.request.body
     const { _id } = ctx.state.user
-    let one = await userModel.findById(_id).lean()
+    let one:any = await userModel.findById(_id).lean()
     if (!one) throw useError('账号不存在', 401, false)
     if (name) one.name = name
     if (pwd) one.pwd = pwd
@@ -78,7 +79,7 @@ module.exports = {
     if (gender) one.gender = gender
     one.isnew = false
     one.updatedAt = new Date()
-    const res = await userModel.findOneAndUpdate({ _id }, { ...one }, { new: true }).lean()
+    const res:any = await userModel.findOneAndUpdate({ _id }, { ...one }, { new: true }).lean()
     delete res.pwd
     delete res.admin
     delete res._id
@@ -87,12 +88,12 @@ module.exports = {
     delete res.updatedAt
     return ctx.body = res
   },
-  async login(ctx) {
+  async login(ctx: Context) {
     const { phone, code, pwd, type } = ctx.request.body
     const query = { phone }
-    let item = {}
+    let item:any = {}
     if (type === 'I') { // smscode
-      const one = await smsCodeModel.findOne(query)
+      const one:any = await smsCodeModel.findOne(query)
       if (!one) throw useError('没有下发验证码', 401, false)
       if (code !== one.code) throw useError('请输入正确的验证码', 401, false)
       const now = +new Date()
@@ -121,7 +122,7 @@ module.exports = {
         }
       }
     }
-    const token = JWT.generateToken({ _id: item._id })
+    const token = generateToken({ _id: item._id })
     const userInfo = {
       name: item.name,
       phone: item.phone,
@@ -133,3 +134,5 @@ module.exports = {
     return ctx.body = { token, userInfo }
   }
 }
+
+export { }

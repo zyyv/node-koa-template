@@ -1,16 +1,16 @@
-const axios = require('axios')
+import axios from 'axios'
 
 /**
  * 获取几位随机数字
  * @param {number} n 
  */
-const getRandomNumber = (n) => String(Math.random()).substring(2, n + 2)
+export const getRandomNumber = (n: number) => String(Math.random()).substring(2, n + 2)
 
 /**
  * 多少分钟
  * @param {number} num 
  */
-const num2Time = (num) => ({
+export const num2Time = (num: number) => ({
   timestamp: num * 1000 * 60,
   text: `${num}分钟`
 })
@@ -21,26 +21,19 @@ const num2Time = (num) => ({
  * @param {number} status 状态码 默认200
  * @param {boolean} same 是否一起更改ctx的状态码
  */
-const useError = (msessage, status = 200, same = true) => {
-  const error = new Error(msessage)
+export const useError = (msessage: string, status = 200, same = true) => {
+  const error: any = new Error(msessage)
   error.status = status
   error.same = same
   return error
 }
 
-const getImageInfo = url => {
+export const getImageInfo = (url: string) => {
   return new Promise((resolve, reject) => {
-    axios.get(`${url}?imageInfo`, {}).then(res => {
+    axios.get(`${url}?imageInfo`, {}).then((res: any) => {
       resolve(res.data)
     }).catch(() => {
       resolve(null)
     })
   })
-}
-
-module.exports = {
-  getRandomNumber,
-  num2Time,
-  useError,
-  getImageInfo
 }

@@ -21,3 +21,5 @@ async function assumeRole() {
   }
 }
 assumeRole();
+
+export {}

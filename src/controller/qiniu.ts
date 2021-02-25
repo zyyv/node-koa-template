@@ -1,7 +1,9 @@
-const qiniu = require('qiniu')
-const { Ak, Sk, Bucket, BucketDomain } = require('../config/qiniu')
+import { Context } from "koa"
 
-function uptoken() {
+import qiniu from 'qiniu'
+import qiniuConfig from '../config/qiniu'
+const { Ak, Sk, Bucket, BucketDomain } = qiniuConfig
+export function uptoken() {
   const mac = new qiniu.auth.digest.Mac(Ak, Sk)
   const options = {
     scope: Bucket,
@@ -15,12 +17,12 @@ function uptoken() {
  * 获取bucket下面的所有文件
  * @param {string} bucket bucket 名称
  */
-async function getBucketFileList(bucket) {
+async function getBucketFileList(bucket: string) {
   const qiniu = require('qiniu')
   const mac = new qiniu.auth.digest.Mac(Ak, Sk)
   const client = new qiniu.rs.BucketManager(mac)
   return new Promise((resolve, reject) => {
-    client.listPrefix(bucket, null, (err, res) => {
+    client.listPrefix(bucket, null, (err: Error, res: any) => {
       if (!err) resolve(res.items)
       else reject(err)
     })
@@ -33,25 +35,22 @@ async function getBucketFileList(bucket) {
  * @param {string} newBucket 新bucket
  * @param {object} options 配置
  */
-async function converBucket(oldBucket, newBucket, options = null) {
+async function converBucket(oldBucket: string, newBucket: string, options = null) {
   const qiniu = require('qiniu')
   const mac = new qiniu.auth.digest.Mac(Ak, Sk)
   const client = new qiniu.rs.BucketManager(mac)
-  const items:any = await getBucketFileList(oldBucket)
+  const items: any = await getBucketFileList(oldBucket)
   if (!items.length) {
-    items.forEach(it => {
-      client.move(oldBucket, it.key, newBucket, it.key, options, (err, ret) => {
+    items.forEach((it: any) => {
+      client.move(oldBucket, it.key, newBucket, it.key, options, (err: Error, res: any) => {
         if (!err) {
-          console.log(ret)
+          console.log(res)
         }
       })
     })
   }
 }
 
-module.exports = {
-  uptoken,
-  async getUpToken(ctx) {
-    return (ctx.body = { token: uptoken(), domainUrl: BucketDomain })
-  }
+export async function getUpToken(ctx: Context) {
+  return (ctx.body = { token: uptoken(), domainUrl: BucketDomain })
 }

@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2016", // 编译目标
-    "module": "commonjs", // ts中模块化标准
+    "target": "esnext", // 编译目标
+    "module": "esnext", // ts中模块化标准
+    // "lib": ["esnext"],
+    // "module": "commonjs", // ts中模块化标准
+    "esModuleInterop": true,
     "strict": true, // 启用所有的严格的类型检查
     "removeComments": true, // 删除所有注释
     "moduleResolution": "node", // 找不到模块再去哪里找
-    "experimentalDecorators": true, // 启用实验性的ES装饰器。
-    "sourceMap": false, // 生成相应的.map文件
-    "baseUrl": ".", // 解析非相对模块名的基准目录
+    // "experimentalDecorators": true, // 启用实验性的ES装饰器。
+    "sourceMap": true, // 生成相应的.map文件
+    "isolatedModules": true
+    // "baseUrl": "./" // 解析非相对模块名的基准目录
   },
-  "exclude": ["node_modules"]
+  "include": ["./src"]
+  // "exclude": ["node_modules"]
 }

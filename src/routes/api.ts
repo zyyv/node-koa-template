@@ -1,14 +1,15 @@
-const Router = require('koa-router')
+import { Context } from "koa"
+import Router from 'koa-router'
 const router = new Router()
-const { getImageInfo } = require('../utils')
+import { getImageInfo } from '../utils'
 
-router.get('/a', async (ctx) => {
+router.get('/a', async (ctx: Context) => {
   const url = 'https://qiniu-shop.zoombin.com/avatar.jpg'
   const res = await getImageInfo(url)
   console.log(res)
   ctx.body = res
 })
-router.get('/', async (ctx) => {
+router.get('/', async (ctx: Context) => {
   // console.log(ctx.state)
 
   // throw new Error('test error')
@@ -22,4 +23,4 @@ router.get('/', async (ctx) => {
 })
 
 
-module.exports = router
+export default router

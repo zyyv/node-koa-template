@@ -1,6 +1,6 @@
-const { Context } = require('koa')
+import { Context, Next } from 'koa'
 
-const error = async (ctx: Context, next) => {
+export const error = async (ctx: Context, next: Next) => {
   try {
     await next()
   } catch ({ status = 500, message, same = true, originalError }) {
@@ -12,18 +12,14 @@ const error = async (ctx: Context, next) => {
   }
 }
 
-const success = async (ctx, next) => {
+export const success = async (ctx: Context, next: Next) => {
   await next()
   ctx.body = {
     status: 200,
     msg: 'success',
     data: {
-      ...ctx.body
+      ...ctx.body as any
     }
   }
 }
 
-module.exports = {
-  error,
-  success
-}

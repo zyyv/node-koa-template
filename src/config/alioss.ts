@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   Ak: '',
   Sk: '',
   Bucket: '', // 空间名称
