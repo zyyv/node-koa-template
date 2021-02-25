@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2016", // 编译目标
+    "module": "commonjs", // ts中模块化标准
+    "strict": true, // 启用所有的严格的类型检查
+    "removeComments": true, // 删除所有注释
+    "moduleResolution": "node", // 找不到模块再去哪里找
+    "experimentalDecorators": true, // 启用实验性的ES装饰器。
+    "sourceMap": false, // 生成相应的.map文件
+    "baseUrl": ".", // 解析非相对模块名的基准目录
+  },
+  "exclude": ["node_modules"]
+}

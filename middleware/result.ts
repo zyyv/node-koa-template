@@ -1,4 +1,6 @@
-const error = async (ctx, next) => {
+const { Context } = require('koa')
+
+const error = async (ctx: Context, next) => {
   try {
     await next()
   } catch ({ status = 500, message, same = true, originalError }) {

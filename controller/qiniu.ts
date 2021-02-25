@@ -37,7 +37,7 @@ async function converBucket(oldBucket, newBucket, options = null) {
   const qiniu = require('qiniu')
   const mac = new qiniu.auth.digest.Mac(Ak, Sk)
   const client = new qiniu.rs.BucketManager(mac)
-  const items = await getBucketFileList(oldBucket)
+  const items:any = await getBucketFileList(oldBucket)
   if (!items.length) {
     items.forEach(it => {
       client.move(oldBucket, it.key, newBucket, it.key, options, (err, ret) => {
