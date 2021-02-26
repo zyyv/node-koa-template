@@ -1,14 +1,14 @@
-const OSS = require('ali-oss')
-const { Ak, Sk } = require('../config/alioss')
+import OSS from 'ali-oss';
+import AliossConfig from '../config/alioss';
 const STS = OSS.STS;
 let sts = new STS({
-  accessKeyId: Ak,
-  accessKeySecret: Sk
+  accessKeyId: AliossConfig.Ak,
+  accessKeySecret: AliossConfig.Sk
 })
 async function assumeRole() {
   try {
     let token = await sts.assumeRole(
-      'acs:ram::1529173705316727:role/smalltalk', '<policy>', '<expiration>', '<session-name>');
+      'acs:ram::1529173705316727:role/smalltalk', '<policy>', 1, '<session-name>');
     let client = new OSS({
       region: '<region>',
       accessKeyId: token.credentials.AccessKeyId,

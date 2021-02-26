@@ -18,11 +18,10 @@ export function uptoken() {
  * @param {string} bucket bucket 名称
  */
 async function getBucketFileList(bucket: string) {
-  const qiniu = require('qiniu')
   const mac = new qiniu.auth.digest.Mac(Ak, Sk)
   const client = new qiniu.rs.BucketManager(mac)
   return new Promise((resolve, reject) => {
-    client.listPrefix(bucket, null, (err: Error, res: any) => {
+    client.listPrefix(bucket, null, (err: any, res: any) => {
       if (!err) resolve(res.items)
       else reject(err)
     })
@@ -36,13 +35,12 @@ async function getBucketFileList(bucket: string) {
  * @param {object} options 配置
  */
 async function converBucket(oldBucket: string, newBucket: string, options = null) {
-  const qiniu = require('qiniu')
   const mac = new qiniu.auth.digest.Mac(Ak, Sk)
   const client = new qiniu.rs.BucketManager(mac)
   const items: any = await getBucketFileList(oldBucket)
   if (!items.length) {
     items.forEach((it: any) => {
-      client.move(oldBucket, it.key, newBucket, it.key, options, (err: Error, res: any) => {
+      client.move(oldBucket, it.key, newBucket, it.key, options, (err: any, res: any) => {
         if (!err) {
           console.log(res)
         }
