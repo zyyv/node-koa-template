@@ -8,7 +8,7 @@ export default {
   entry: './src/app.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'app.bundle.js'
+    filename: 'app.js'
   },
   plugins: [new CleanWebpackPlugin()],
   module: {
