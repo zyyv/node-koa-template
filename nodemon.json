@@ -1,0 +1,14 @@
+{
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    ".gitignore",
+    ".prettierrc",
+    "nodemon.json",
+    "package.json"
+  ],
+  "watch": ["dist/"],
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

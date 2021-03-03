@@ -18,7 +18,7 @@ router.get('/', async (ctx: Context) => {
   // err.status = 504
   // throw err
   ctx.body = {
-    msg: 'hello koa'
+    msg: 'hello koa1'
   }
 })
 

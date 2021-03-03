@@ -15,6 +15,8 @@ export const num2Time = (num: number) => ({
   text: `${num}分钟`
 })
 
+console.log(123);
+
 /**
  * 自定义Error
  * @param {string} msessage 错误消息

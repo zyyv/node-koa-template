@@ -1,16 +1,14 @@
 import path from 'path'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+// import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 
 export default {
   target: 'node',
-  mode: 'production',
-  // mode: 'development',
   entry: './src/app.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app.js'
   },
-  plugins: [new CleanWebpackPlugin()],
+  // plugins: [new CleanWebpackPlugin()],
   module: {
     rules: [
       {
