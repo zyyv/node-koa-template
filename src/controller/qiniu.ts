@@ -1,8 +1,8 @@
 import { Context } from "koa"
 
 import qiniu from 'qiniu'
-import qiniuConfig from '../config/qiniu'
-const { Ak, Sk, Bucket, BucketDomain } = qiniuConfig
+import config from '@/config'
+const { qiniuConfig: { Ak, Sk, Bucket, BucketDomain } } = config
 export function uptoken() {
   const mac = new qiniu.auth.digest.Mac(Ak, Sk)
   const options = {

@@ -1,9 +1,10 @@
-import OSS from 'ali-oss';
-import AliossConfig from '../config/alioss';
+import OSS from 'ali-oss'
+import config from '@/config'
+const { aliossConfig } = config
 const STS = OSS.STS;
 let sts = new STS({
-  accessKeyId: AliossConfig.Ak,
-  accessKeySecret: AliossConfig.Sk
+  accessKeyId: aliossConfig.Ak,
+  accessKeySecret: aliossConfig.Sk
 })
 async function assumeRole() {
   try {
@@ -22,4 +23,4 @@ async function assumeRole() {
 }
 assumeRole();
 
-export {}
+export { }

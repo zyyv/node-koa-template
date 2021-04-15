@@ -1,7 +1,7 @@
 import { Context } from "koa"
 import Router from 'koa-router'
+import { getImageInfo } from '@/utils'
 const router = new Router()
-import { getImageInfo } from '../utils'
 
 router.get('/a', async (ctx: Context) => {
   const url = 'https://qiniu-shop.zoombin.com/avatar.jpg'
@@ -21,6 +21,5 @@ router.get('/', async (ctx: Context) => {
     msg: 'hello koa1'
   }
 })
-
 
 export default router

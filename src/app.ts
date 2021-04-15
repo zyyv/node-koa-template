@@ -1,10 +1,10 @@
 import Koa from 'koa'
-import router from './routes'
+import router from '@/router'
 import bodyParser from 'koa-bodyparser'
 import xmlParser from 'koa-xml-body'
 import cors from 'koa2-cors'
-// import { Connect } from './config/db'
-import { error } from './middleware/result'
+// import { Connect } from '@/common/db'
+import { error } from '@/middleware/result'
 
 const app = new Koa()
 const port = 9999

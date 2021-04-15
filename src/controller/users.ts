@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 mongoose.set('useFindAndModify', false)
 const Schema = mongoose.Schema
-import { generateToken } from '../utils/jwt'
-import { getRandomNumber, num2Time, useError } from '../utils'
+import { generateToken } from '@/utils/jwt'
+import { getRandomNumber, num2Time, useError } from '@/utils'
 import { Context } from 'koa'
 const GENDER_ENUM = { male: 'male', female: 'female', unknow: 'unknow' }
 const expMins = 1 // 验证码过期时间 分钟
