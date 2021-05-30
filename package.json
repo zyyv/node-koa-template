@@ -1,0 +1,30 @@
+{
+  "name": "node-koa",
+  "version": "1.0.0",
+  "description": "node app server for esbuild",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chris-zhu/node-koa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chris-zhu/node-koa/issues"
+  },
+  "homepage": "https://github.com/chris-zhu/node-koa#readme",
+  "devDependencies": {
+    "@types/koa": "^2.13.3",
+    "@types/node": "^15.6.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "koa": "^2.13.1"
+  }
+}
